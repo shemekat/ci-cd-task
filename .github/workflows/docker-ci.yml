@@ -20,7 +20,7 @@ jobs:
         docker build -t ${{ secrets.DOCKER_USERNAME }}/task_container:${{ github.ref_name }} .
         docker save ${{ secrets.DOCKER_USERNAME }}/task_container:${{ github.ref_name }} -o image.tar
 
-    - name: Upload image to workspace
+    - name: Upload Docker image
       uses: actions/upload-artifact@v4
       with:
         name: docker-image
@@ -30,11 +30,13 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-    - name: Download image from workspace
+    - name: Download Docker image
       uses: actions/download-artifact@v4
       with:
         name: docker-image
-        path: image.tar
+
+    - name: Extract Docker image
+      run: tar -xf image.tar
 
     - name: Load Docker image
       run: docker load -i image.tar
