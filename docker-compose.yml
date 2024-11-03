@@ -1,0 +1,9 @@
+version: '3'
+services:
+  task:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: bytescriptdev/task_container
+    command: >
+      sh -c "docker login && docker push bytescriptdev/task_container"
