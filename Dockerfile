@@ -1,4 +1,4 @@
 FROM python:3.9-slim
-COPY . /app
+COPY app /app
 WORKDIR /app
 CMD ["python", "app.py"]
